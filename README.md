@@ -129,6 +129,17 @@ console.log({
 - 压缩摘要的英文指令硬编码在上游（`compaction-basic` 的 summarizer），插件改不了。
 - `locale: zh` 只影响界面，不影响模型提示词；本插件补的就是这一块。
 
+## 发布（维护者）
+
+发布走 GitHub Actions + npm Trusted Publishing（OIDC），不需要长期 npm token，也不需要把 token 存进仓库 secret：
+
+1. 升版本并在 `CHANGELOG.md` 记一条：`npm version patch --no-git-tag-version`（或手改 `package.json`）；
+2. 提交并推送 `main`；
+3. 打与版本一致的 tag 并推送：`git tag vX.Y.Z` + `git push origin vX.Y.Z`；
+4. `.github/workflows/publish.yml` 会跑测试、校验 tag 与 `package.json` 版本一致，然后用 OIDC 发布；provenance 由 npm 自动生成。
+
+失败时用 `gh run view <run-id> --log` 看日志；workflow 也支持手动 `workflow_dispatch`（手动触发时跳过 tag 校验）。首次发布前需要在 npm 包设置里配置 Trusted Publisher（Publisher `GitHub Actions` / `xia-sc` / `dsh-language-policy` / `publish.yml`）。
+
 ## 文件
 
 | 文件 | 作用 |
@@ -139,6 +150,7 @@ console.log({
 | `icon.svg` | 插件面板图标（原创） |
 | `test/smoke.mjs` | 静态冒烟检查 |
 | `CHANGELOG.md` | 变更记录 |
+| `.github/workflows/publish.yml` | tag 触发的 OIDC 发布 workflow |
 | `tools/` | 实验与验证脚本（不进 npm 包）：reasoning 中文占比统计、会话日志检查、实验题目与报告 |
 
 ## License
