@@ -1,0 +1,55 @@
+name: Publish to npm
+
+# Publishes @xia-sc/dsh-language-policy through npm Trusted Publishing (OIDC).
+# No NPM_TOKEN secret is used: the id-token permission is exchanged for a
+# short-lived publish credential bound to this repository and workflow file.
+#
+# Prerequisite on npmjs.com (package settings -> Trusted Publishing):
+#   Publisher            GitHub Actions
+#   Organization         xia-sc
+#   Repository           dsh-language-policy
+#   Workflow filename    publish.yml
+#   Environment name     (empty)
+#
+# Trigger: push a v* tag (tag must equal package.json version), or run manually.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Show toolchain
+        run: node --version && npm --version
+
+      - name: Verify tag matches package version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          echo "package.json: $PKG_VERSION / tag: $TAG_VERSION"
+          test "$PKG_VERSION" = "$TAG_VERSION"
+
+      - name: Test
+        run: npm test
+
+      - name: Publish
+        # Trusted Publishing attaches provenance automatically; no token env var.
+        run: npm publish --access public

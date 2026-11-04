@@ -1,5 +1,9 @@
 # @xia-sc/dsh-language-policy
 
+[![npm version](https://img.shields.io/npm/v/@xia-sc/dsh-language-policy.svg)](https://www.npmjs.com/package/@xia-sc/dsh-language-policy)
+[![license](https://img.shields.io/npm/l/@xia-sc/dsh-language-policy.svg)](LICENSE)
+[![publish](https://github.com/xia-sc/dsh-language-policy/actions/workflows/publish.yml/badge.svg)](https://github.com/xia-sc/dsh-language-policy/actions/workflows/publish.yml)
+
 一个只做一件事的 **Host-only DSH bundle**：把一条简体中文语言策略钉在系统提示词的**最末尾**，让模型的内部推理（reasoning）和用户回复保持中文。
 
 - 零依赖（只用 `systemPrompt` 服务和 Cordis 的 `ctx.effect` 生命周期）

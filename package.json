@@ -1,6 +1,6 @@
 {
   "name": "@xia-sc/dsh-language-policy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DSH host-only bundle that pins a Simplified-Chinese reasoning/response policy at the end of the system prompt",
   "license": "MIT",
   "author": "xia-sc",
