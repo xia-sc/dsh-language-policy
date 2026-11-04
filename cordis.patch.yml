@@ -1,0 +1,20 @@
+# ============================================================================
+# @xia-sc/dsh-language-policy —— DSH bundle patch
+# ============================================================================
+# 只插入一行插件，不覆盖任何上游行（尤其不碰 system-prompt 的 config），
+# 因此不会与上游的 personaPrefix / personaSuffix 失配。
+#
+# 安装：
+#   plugin_manager -> install_bundle -> target: <本目录绝对路径>      （本地目录）
+#   plugin_manager -> install_bundle -> target: @xia-sc/dsh-language-policy （npm 包）
+#
+# 只想临时关闭对照时（不卸载），给该行加 config：
+#   - id: dsh-language-policy
+#     name: '@xia-sc/dsh-language-policy'
+#     config:
+#       enabled: false
+# ============================================================================
+
+- insert:
+    - id: dsh-language-policy
+      name: '@xia-sc/dsh-language-policy'

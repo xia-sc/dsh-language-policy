@@ -1,0 +1,55 @@
+{
+  "name": "@xia-sc/dsh-language-policy",
+  "version": "0.1.0",
+  "description": "DSH host-only bundle that pins a Simplified-Chinese reasoning/response policy at the end of the system prompt",
+  "license": "MIT",
+  "author": "xia-sc",
+  "homepage": "https://github.com/xia-sc/dsh-language-policy#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xia-sc/dsh-language-policy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xia-sc/dsh-language-policy/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "language-policy",
+    "chinese"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.5 <0.3.0-0"
+  },
+  "scripts": {
+    "check": "node --check index.js",
+    "test": "node test/smoke.mjs",
+    "prepublishOnly": "npm test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

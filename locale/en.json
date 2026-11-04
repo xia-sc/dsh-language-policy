@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Language Policy",
+    "description": "Pins a Simplified-Chinese reasoning and response policy at the end of the system prompt."
+  }
+}
