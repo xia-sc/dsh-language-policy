@@ -123,6 +123,17 @@ console.log({
 
 结论：AGENTS.md 本身有效（两次都在 74–79%），但长推理会出现英文漂移（一次掉到 49.2%）；插件把占比稳定在 76–78% 的窄带内，主要收益是**压低漂移的尾部风险**，而不是把均值从 0 拉到 100。n=3 属小样本，不构成统计显著性结论。完整方法、统计口径、会话 id 与复现命令见 [tools/experiment-report.md](tools/experiment-report.md)。
 
+## 兼容性
+
+| DSH 版本 | 状态 | 说明 |
+|---|---|---|
+| 0.2.1-rc.5 | ✅ 已实测 | 安装、提示词注入、A/B 实验均在该版本完成 |
+| 0.2.2-rc.1 | ✅ 已实测 | 2026-11-05 验证：插件行 `enabled: true` / `fiberPhase: active`；新会话系统提示词 8012 字符、含策略段且 persona 与 AGENTS.md 均在；`DEPLOYMENT_PERSONA_SUFFIX` 仍为 10200，`order = 10201` 依旧落在提示词末尾；`section()` / `getSectionOrder()` 的实现与 0.2.1-rc.5 逐行一致 |
+
+插件依赖的 API 只有三样：`ctx.systemPrompt.section()`、`getSectionOrder('DEPLOYMENT_PERSONA_SUFFIX')`、`ctx.effect()`；不 import 任何 DSH 包，因此不受 cordis 4.0 → 4.1 升级影响。`engines.dsh` 声明为 `>=0.2.1-rc.5 <0.3.0-0`，覆盖这两个版本及后续 0.2.x。
+
+已知例外（与版本无关）：`minimal` preset 的 persona 使用 `complete: true`，会整体覆盖系统提示词，本插件段在该 preset 下不生效；`standard` / `ptc` / `cordis` / `cc` 都是拼装式，正常生效。
+
 ## 边界
 
 - **不承诺 100% 中文思考**：长推理仍可能漂移，提示词只能提高概率。

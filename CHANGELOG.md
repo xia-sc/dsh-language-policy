@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- 兼容性验证：DSH desktop 0.2.2-rc.1（插件行 active、系统提示词含策略段、`DEPLOYMENT_PERSONA_SUFFIX` 仍为 10200、section API 未变），见 README「兼容性」；无运行时代码改动。
+
 ## 0.1.1 — 2026-11-04
 
 - 发布链路改为 GitHub Actions + npm Trusted Publishing（OIDC），发布自动附带 provenance，不再使用长期 npm token。
