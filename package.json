@@ -1,6 +1,6 @@
 {
   "name": "@xia-sc/dsh-language-policy",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "DSH host-only bundle that pins a Simplified-Chinese reasoning/response policy at the end of the system prompt",
   "license": "MIT",
   "author": "xia-sc",
@@ -23,12 +23,14 @@
   "main": "index.js",
   "exports": {
     ".": "./index.js",
+    "./client": "./client.js",
     "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
   "files": [
     "index.js",
+    "client.js",
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg",
@@ -50,6 +52,10 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
     }
   }
 }

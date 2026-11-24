@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Language Policy",
-    "description": "Pins a Simplified-Chinese reasoning and response policy at the end of the system prompt."
+    "description": "Pins a Simplified-Chinese reasoning and response policy at the start, middle, and end of the system prompt, with an optional per-step reminder; the plugin page's Configure view has three independent switches."
   }
 }
